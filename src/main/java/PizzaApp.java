@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class PizzaApp {
@@ -14,7 +16,7 @@ public class PizzaApp {
             pizzas[i] = in.nextInt();
         }
 
-        List<Integer> pizzasToOrder = pizzasToOrder(pizzas, maxSlicesToOrder);
+        List<Integer> pizzasToOrder = randomPizzasToOrder(pizzas, maxSlicesToOrder);
 
         System.out.println(pizzasToOrder.size());
         for (Integer pizza : pizzasToOrder) {
@@ -40,5 +42,45 @@ public class PizzaApp {
             }
         }
         return order;
+    }
+
+    public static List<Integer> randomPizzasToOrder(final int[] pizzas, final int maxSlicesToOrder) {
+        int[] pizzaIds = new int[pizzas.length];
+        for (int i = 0; i < pizzas.length; i++) {
+            pizzaIds[i] = i;
+        }
+
+        List<Integer> bestOrder = Collections.emptyList();
+        int bestOrderLeftOver = Integer.MAX_VALUE;
+
+        for(int times = 0; times < 10000; times++) {
+            shuffleArrayFisherYates(pizzaIds);
+            int slicesLeft = maxSlicesToOrder;
+            List<Integer> order = new ArrayList<>(pizzaIds.length);
+            for (int i = pizzaIds.length - 1; i >= 0; i--) {
+                int chosen = pizzaIds[i];
+                int pizzaSlices = pizzas[chosen];
+                if (pizzaSlices <= slicesLeft) {
+                    order.add(chosen);
+                    slicesLeft -= pizzaSlices;
+                }
+            }
+            if (bestOrderLeftOver > slicesLeft) {
+                bestOrderLeftOver = slicesLeft;
+                bestOrder = order;
+            }
+        }
+        return bestOrder;
+    }
+
+    private static void shuffleArrayFisherYates(int[] array) {
+        int index, temp;
+        Random random = new Random();
+        for (int i = array.length - 1; i > 0; i--) {
+            index = random.nextInt(i + 1);
+            temp = array[index];
+            array[index] = array[i];
+            array[i] = temp;
+        }
     }
 }

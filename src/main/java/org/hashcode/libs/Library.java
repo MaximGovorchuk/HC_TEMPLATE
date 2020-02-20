@@ -14,5 +14,14 @@ public class Library {
     int signupProcessTime;
     int shipBooksPerDay;
 
+    @Override
+    public String toString() {
+        return "Library{" +
+                "id=" + id +
+                ", books=" + books +
+                ", signupProcessTime=" + signupProcessTime +
+                ", shipBooksPerDay=" + shipBooksPerDay +
+                '}';
+    }
 }
 

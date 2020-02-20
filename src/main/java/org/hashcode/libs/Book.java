@@ -3,8 +3,8 @@ package org.hashcode.libs;
 import java.util.Objects;
 
 public class Book {
-    int id;
-    int score;
+    public int id;
+    public int score;
 
     public Book() {
     }

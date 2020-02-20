@@ -19,7 +19,7 @@ public class App {
             Parser parser = new Parser();
             parser.parseInput("./src/main/resources/" + fileName + ".txt");
 
-            Algorithm dumnAlgorithm = new DumbAlgorithm();
+            Algorithm dumnAlgorithm = new RandomAlgorithm();
 
             SimulatorResult result = dumnAlgorithm.calculateResult(parser.getDeadLine(), parser.getLibraries(), parser.getBooks());
 

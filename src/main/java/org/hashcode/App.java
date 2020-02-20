@@ -41,7 +41,7 @@ public class App {
                 lines.add(stringBuilder.toString());
             }
 
-            BufferedWriter writer = new BufferedWriter(new FileWriter("/Users/mhovorchuk/hashcode/HashCode/src/main/resources/" + fileName + "_" + result.score + ".out"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("./src/main/resources/" + fileName + "_" + result.score + ".out"));
 
             IOUtils.writeLines(lines, null, writer);
             writer.close();

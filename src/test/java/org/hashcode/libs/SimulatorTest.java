@@ -23,20 +23,36 @@ public class SimulatorTest {
 
         int deadLine = parser.getDeadLine();
 
-        Map<Integer, Library> libraries = parser.getLibraries();
+        Map<Integer, Book> books = parser.getBooks();
 
+        Map<Integer, Library> libraries = parser.getLibraries();
 
         HashMap<Library, List<Book>> orderOfBooksPerLibrary = new HashMap<>();
         Library first = libraries.get(0);
-        first.books.
 
-        orderOfBooksPerLibrary.put(first, Arrays.asList())
+        List<Book> booksInOrderForFirstLibrary = new ArrayList<>();
+
+        booksInOrderForFirstLibrary.add(books.get(0));
+        booksInOrderForFirstLibrary.add(books.get(1));
+        booksInOrderForFirstLibrary.add(books.get(2));
+        booksInOrderForFirstLibrary.add(books.get(3));
+        booksInOrderForFirstLibrary.add(books.get(4));
+
+        orderOfBooksPerLibrary.put(first, booksInOrderForFirstLibrary);
+
+        List<Book> booksInOrderForSecondLibrary = new ArrayList<>();
+
+        Library second = libraries.get(1);
+        booksInOrderForSecondLibrary.add(books.get(5));
+        booksInOrderForSecondLibrary.add(books.get(2));
+        booksInOrderForSecondLibrary.add(books.get(3));
+
+        orderOfBooksPerLibrary.put(second, booksInOrderForSecondLibrary);
 
         ArrayList<Library> librariesToSignupOrder = new ArrayList<>();
+        librariesToSignupOrder.add(first);
+        librariesToSignupOrder.add(second);
 
-
-        simulator.run(orderOfBooksPerLibrary, librariesToSignupOrder, deadLine)
-
-        //assertEquals();
+        assertEquals(21, simulator.run(orderOfBooksPerLibrary, librariesToSignupOrder, deadLine));
     }
 }

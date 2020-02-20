@@ -35,13 +35,11 @@ book scores:
 3  -> 1 poin
 
 1 2 4
-
-
-
-
 */
 public class Simulator {
-    public int run(Map<Library, List<Book>> orderOfBooksPerLibrary, List<Library> librariesToSignupOrder, int daysDeadline) {
+    public SimulatorResult run(Map<Library, List<Book>> orderOfBooksPerLibrary, List<Library> librariesToSignupOrder, int daysDeadline) {
+        SimulatorResult result = new SimulatorResult();
+
         Map<Library, Integer> timeAvailableForLibrary = new HashMap<>();
 
         int time = 0;
@@ -62,12 +60,23 @@ public class Simulator {
             Library library = e.getKey();
             Iterator<Book> bookIterator = e.getValue().iterator();
 
+            if (!bookIterator.hasNext()) {
+                break;
+            }
+
+            SimulatorResult.LibraryOrder libraryOrder = new SimulatorResult.LibraryOrder();
+            libraryOrder.libraryId = library.id;
+
+            result.libraryOrders.add(libraryOrder);
+
             int currentTime = timeAvailableForLibrary.get(library);
             int booksPerDay = library.shipBooksPerDay;
 
             while (currentTime < daysDeadline && bookIterator.hasNext()) {
                 Book book = bookIterator.next();
                 if (scanned.add(book)) {
+                    libraryOrder.books.add(book);
+
                     totalScore += book.score;
                     booksPerDay--;
                     if (booksPerDay == 0) {
@@ -77,6 +86,8 @@ public class Simulator {
             }
         }
 
-        return totalScore;
+        result.score = totalScore;
+
+        return result;
     }
 }

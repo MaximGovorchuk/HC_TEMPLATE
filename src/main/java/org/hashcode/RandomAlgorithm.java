@@ -22,7 +22,7 @@ public class RandomAlgorithm implements Algorithm {
 
         SimulatorResult bestResult = new SimulatorResult();
 
-        for(int times = 0; times < 1000; times++) {
+        for(int times = 0; times < 10000; times++) {
             shuffleOrderOfBooksPerLibrary(orderOfBooksPerLibrary);
             shuffleLibrariesSignupOrder(librariesSignupOrder);
 

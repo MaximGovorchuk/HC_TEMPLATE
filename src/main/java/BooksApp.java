@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -5,37 +7,32 @@ public class BooksApp {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
-        int booksRequired = in.nextInt();
-        int librariesNumber = in.nextInt();
+        int bookCount = in.nextInt();
+        int libraryCount = in.nextInt();
         int daysDeadline = in.nextInt();
 
-        int[] bookScores = new int[booksRequired];
-        for(int i = 0; i < booksRequired; i++) {
-            bookScores[i] = in.nextInt();
+        List<Book> books = new ArrayList<>(bookCount);
+        for(int i = 0; i < bookCount; i++) {
+            books.add(new Book(i, in.nextLong()));
         }
 
-        Library[] libraries = new Library[librariesNumber];
-
-        for(int i = 0; i < librariesNumber; i++) {
+        List<Library> libraries = new ArrayList<>();
+        for(int libraryId = 0; libraryId < libraryCount; libraryId++) {
             int booksInLibrary = in.nextInt();
-
-            Library library = new Library();
-            library.signupProcessTime = in.nextInt();
-            library.shipBooksPerDay = in.nextInt();
-
-            int[] libraryBookIds = new int[booksInLibrary];
+            int signUpDuration = in.nextInt();
+            int booksPerDay = in.nextInt();
+            List<Book> libraryBooks = new ArrayList<>(booksInLibrary);
             for(int j = 0; j < booksInLibrary; j++) {
-                libraryBookIds[j] = in.nextInt();
+                int bookId = in.nextInt();
+                libraryBooks.add(books.get(bookId));
             }
-
-            library.bookIds = libraryBookIds;
-
-            libraries[i] = library;
+            Library library = new Library(libraryId, libraryBooks, signUpDuration, booksPerDay);
+            libraries.add(library);
         }
 
+        BookScanner bookScanner = new BookScanner(books, libraries);
+        Result result = bookScanner.work(daysDeadline);
+        result.write(System.out, System.err);
     }
 
-    public List<LibraryOrder> getSolution(int booksRequired, int daysDeadline, int[] bookScores, Library[] libraries) {
-        return null;
-    }
 }

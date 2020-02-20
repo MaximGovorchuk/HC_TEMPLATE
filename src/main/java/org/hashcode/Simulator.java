@@ -67,7 +67,9 @@ public class Simulator {
             SimulatorResult.LibraryOrder libraryOrder = new SimulatorResult.LibraryOrder();
             libraryOrder.libraryId = library.id;
 
-            result.libraryOrders.add(libraryOrder);
+            if (!timeAvailableForLibrary.containsKey(library)) {
+                continue;
+            }
 
             int currentTime = timeAvailableForLibrary.get(library);
             int booksPerDay = library.shipBooksPerDay;
@@ -83,6 +85,10 @@ public class Simulator {
                         currentTime++;
                     }
                 }
+            }
+
+            if (!libraryOrder.books.isEmpty()) {
+                result.libraryOrders.add(libraryOrder);
             }
         }
 

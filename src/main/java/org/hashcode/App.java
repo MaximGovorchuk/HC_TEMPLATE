@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -16,32 +17,35 @@ public class App {
 
 
     public static void main(String[] args) throws IOException {
-        Parser parser = new Parser();
-        String fileName = "a";
-        parser.parseInput("/Users/mhovorchuk/hashcode/HashCode/src/main/resources/" + fileName + ".txt");
+        for (String fileName : Arrays.asList("a", "b", "c", "d", "e", "f")) {
+            Parser parser = new Parser();
+            parser.parseInput("/Users/mhovorchuk/hashcode/HashCode/src/main/resources/" + fileName + ".txt");
 
-        Algorithm algorithm = new Algorithm();
+            Algorithm algorithm = new Algorithm();
 
-        SimulatorResult result = algorithm.calculateResult(parser.getDeadLine(), parser.getLibraries(), parser.getBooks());
+            SimulatorResult result = algorithm.calculateResult(parser.getDeadLine(), parser.getLibraries(), parser.getBooks());
 
-        List<SimulatorResult.LibraryOrder> libraryOrders = result.libraryOrders;
+            List<SimulatorResult.LibraryOrder> libraryOrders = result.libraryOrders;
 
-        ArrayList<String> lines = new ArrayList<>();
-        lines.add(String.valueOf(libraryOrders.size()));
+            ArrayList<String> lines = new ArrayList<>();
+            lines.add(String.valueOf(libraryOrders.size()));
 
-        for (SimulatorResult.LibraryOrder libraryOrder : libraryOrders) {
-            StringBuilder stringBuilder = new StringBuilder();
-            for (Book book : libraryOrder.books) {
-                stringBuilder.append(book.id);
-                stringBuilder.append(" ");
+            for (SimulatorResult.LibraryOrder libraryOrder : libraryOrders) {
+                lines.add(libraryOrder.libraryId + " " + libraryOrder.books.size());
+
+                StringBuilder stringBuilder = new StringBuilder();
+                for (Book book : libraryOrder.books) {
+                    stringBuilder.append(book.id);
+                    stringBuilder.append(" ");
+                }
+                stringBuilder.setLength(stringBuilder.length() - 1);
+                lines.add(stringBuilder.toString());
             }
-            stringBuilder.setLength(stringBuilder.length() - 1);
-            lines.add(stringBuilder.toString());
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter("/Users/mhovorchuk/hashcode/HashCode/src/main/resources/" + fileName + "_" + result.score + ".out"));
+
+            IOUtils.writeLines(lines, null, writer);
+            writer.close();
         }
-
-        BufferedWriter writer = new BufferedWriter(new FileWriter("/Users/mhovorchuk/hashcode/HashCode/src/main/resources/" + fileName + "_" + result.score +  ".out"));
-
-        IOUtils.writeLines(lines, null, writer);
-        writer.close();
     }
 }

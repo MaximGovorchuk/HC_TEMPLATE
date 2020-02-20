@@ -29,12 +29,28 @@ public class SmarterGreedyAlgorithm implements Algorithm {
             return secondLibraryTotalScore - firstLibraryTotalScore;
         });*/
 
-        librariesSignupOrder.sort(Comparator.comparingInt(f -> f.signupProcessTime));
+        librariesSignupOrder.sort((f, s) -> rank(s, deadLine) - rank(f, deadLine));
 
         for (List<Book> value : orderOfBooksPerLibrary.values()) {
             value.sort((f, s) -> s.score - f.score);
         }
 
+        /*Set<Book> seen = new HashSet<>();
+
+        // Exclude duplicates
+        for (Library library : librariesSignupOrder) {
+            List<Book> value = orderOfBooksPerLibrary.get(library);
+            for (int i = value.size() - 1; i >= 0; i--) {
+                if (!seen.add(value.get(i))) {
+                    value.remove(i);
+                }
+            }
+        }*/
+
         return simulator.run(orderOfBooksPerLibrary, librariesSignupOrder, deadLine);
+    }
+
+    private int rank(Library library, int deadline) {
+        return deadline - (library.signupProcessTime) * library.shipBooksPerDay;
     }
 }

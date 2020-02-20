@@ -13,6 +13,7 @@ public class Parser {
 
     private int deadLine;
     private Map<Integer, Library> libraries;
+    private Map<Integer, Book> books;
 
     public static void main(String[] args) throws IOException {
         new Parser().parseInput(args[0]);
@@ -23,7 +24,7 @@ public class Parser {
 
         deadLine = parseDeadline(lines.get(0));
         int countLibs = parseNumberLibs(lines.get(0));
-        Map<Integer, Book> books = parseBooks(lines.get(1));
+        books = parseBooks(lines.get(1));
 
         libraries = new HashMap<>();
         int start = 2;
@@ -80,5 +81,9 @@ public class Parser {
 
     public Map<Integer, Library> getLibraries() {
         return libraries;
+    }
+
+    public Map<Integer, Book> getBooks() {
+        return books;
     }
 }

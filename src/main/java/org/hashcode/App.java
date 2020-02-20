@@ -2,7 +2,6 @@ package org.hashcode;
 
 import org.apache.commons.io.IOUtils;
 import org.hashcode.libs.Book;
-import org.hashcode.libs.Library;
 import org.hashcode.libs.Parser;
 
 import java.io.BufferedWriter;
@@ -20,9 +19,9 @@ public class App {
             Parser parser = new Parser();
             parser.parseInput("./src/main/resources/" + fileName + ".txt");
 
-            Algorithm algorithm = new Algorithm();
+            Algorithm dumnAlgorithm = new DumbAlgorithm();
 
-            SimulatorResult result = algorithm.calculateResult(parser.getDeadLine(), parser.getLibraries(), parser.getBooks());
+            SimulatorResult result = dumnAlgorithm.calculateResult(parser.getDeadLine(), parser.getLibraries(), parser.getBooks());
 
             List<SimulatorResult.LibraryOrder> libraryOrders = result.libraryOrders;
 

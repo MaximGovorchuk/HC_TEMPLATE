@@ -1,3 +1,7 @@
+import org.hashcode.libs.Book;
+import org.hashcode.libs.Library;
+import org.hashcode.libs.LibraryOrder;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,7 +27,7 @@ public class BooksApp {
             library.signupProcessTime = in.nextInt();
             library.shipBooksPerDay = in.nextInt();
 
-            int[] libraryBookIds = new int[booksInLibrary];
+            Book[] libraryBookIds = new int[booksInLibrary];
             for(int j = 0; j < booksInLibrary; j++) {
                 libraryBookIds[j] = in.nextInt();
             }

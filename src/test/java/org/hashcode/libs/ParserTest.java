@@ -10,7 +10,12 @@ public class ParserTest {
 
     @Test
     public void testParser() throws IOException {
-        Map<Integer, Library> libraryMap = new Parser().parseInput("input.txt");
+        Parser parser = new Parser();
+        parser.parseInput("input.txt");
+
+        Map<Integer, Library> libraryMap = parser.getLibraries();
+
+        Assert.assertEquals(7, parser.getDeadLine());
 
         Library lib = libraryMap.get(0);
         Assert.assertEquals(0, lib.id);

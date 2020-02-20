@@ -10,28 +10,30 @@ import java.util.List;
 import java.util.Map;
 
 public class Parser {
+
+    private int deadLine;
+    private Map<Integer, Library> libraries;
+
     public static void main(String[] args) throws IOException {
         new Parser().parseInput(args[0]);
     }
 
-    public Map<Integer, Library> parseInput(String filePath) throws IOException {
+    public void parseInput(String filePath) throws IOException {
         List<String> lines = IOUtils.readLines(new FileReader(new File(filePath)));
 
-        int deadline = parseDeadline(lines.get(0));
+        deadLine = parseDeadline(lines.get(0));
         int countLibs = parseNumberLibs(lines.get(0));
         Map<Integer, Book> books = parseBooks(lines.get(1));
 
-        Map<Integer, Library> result = new HashMap<>();
+        libraries = new HashMap<>();
         int start = 2;
         for (int i = 0; i < countLibs; i++) {
             Library lib = parseLibrary(lines.get(start), i);
             parseLibraryBooks(books, lines.get(start + 1), lib);
             start += 2;
 
-            result.put(i, lib);
+            libraries.put(i, lib);
         }
-
-        return result;
     }
 
     private void parseLibraryBooks(Map<Integer, Book> books, String line, Library lib) {
@@ -70,5 +72,13 @@ public class Parser {
         }
 
         return map;
+    }
+
+    public int getDeadLine() {
+        return deadLine;
+    }
+
+    public Map<Integer, Library> getLibraries() {
+        return libraries;
     }
 }

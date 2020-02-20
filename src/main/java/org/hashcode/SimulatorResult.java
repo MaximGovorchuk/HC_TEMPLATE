@@ -11,6 +11,6 @@ public class SimulatorResult {
 
     static class LibraryOrder {
         int libraryId;
-        List<Book> books;
+        List<Book> books = new ArrayList<>();
     }
 }

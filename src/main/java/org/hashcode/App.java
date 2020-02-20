@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class App {
 
@@ -19,7 +18,7 @@ public class App {
     public static void main(String[] args) throws IOException {
         for (String fileName : Arrays.asList("a", "b", "c", "d", "e", "f")) {
             Parser parser = new Parser();
-            parser.parseInput("/Users/mhovorchuk/hashcode/HashCode/src/main/resources/" + fileName + ".txt");
+            parser.parseInput("./src/main/resources/" + fileName + ".txt");
 
             Algorithm algorithm = new Algorithm();
 

@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class BooksApp {
@@ -15,8 +16,26 @@ public class BooksApp {
 
         Library[] libraries = new Library[librariesNumber];
 
-        for
+        for(int i = 0; i < librariesNumber; i++) {
+            int booksInLibrary = in.nextInt();
+
+            Library library = new Library();
+            library.signupProcessTime = in.nextInt();
+            library.shipBooksPerDay = in.nextInt();
+
+            int[] libraryBookIds = new int[booksInLibrary];
+            for(int j = 0; j < booksInLibrary; j++) {
+                libraryBookIds[j] = in.nextInt();
+            }
+
+            library.bookIds = libraryBookIds;
+
+            libraries[i] = library;
+        }
+
     }
 
-
+    public List<LibraryOrder> getSolution(int booksRequired, int daysDeadline, int[] bookScores, Library[] libraries) {
+        return null;
+    }
 }
